@@ -1,0 +1,8 @@
+pandas
+matplotlib
+seaborn
+streamlit
+scikit-learn
+langchain
+langchain-core
+langchain-groq
