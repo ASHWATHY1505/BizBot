@@ -18,6 +18,9 @@ from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.impute import SimpleImputer
+from sklearn.model_selection import GridSearchCV, cross_val_score
+from sklearn.metrics import accuracy_score, r2_score
+import numpy as np
 
 def main():
     st.set_page_config(page_title="Chat with ME!", layout="wide")
@@ -35,10 +38,10 @@ def main():
         model_predictions_page(groq_api_key)
 
 def chatbot_page(groq_api_key):
-    # Display the Groq logo
+    # Display the logo
     spacer, col = st.columns([5, 1])
     with col:
-        st.image('logo.png')
+        st.image('C:/Users/ashwa/OneDrive/Desktop/4th sem/STREAM/Screenshot 2024-09-03 012211.png')
 
     st.title("Chat with ME!")
     st.write("Hello! I'm your friendly Neighbourhood chatbot. I can help answer your questions, provide information, or just chat. I'm also super fast! Let's start our conversation!")
@@ -146,10 +149,6 @@ def chatbot_page(groq_api_key):
         message = {'human': user_question, 'AI': response}
         st.session_state.chat_history.append(message)
         st.write("Chatbot:", response)
-
-from sklearn.model_selection import GridSearchCV, cross_val_score
-from sklearn.metrics import accuracy_score, r2_score
-import numpy as np
 
 def model_predictions_page(groq_api_key):
     st.title("Model Predictions")
@@ -272,8 +271,8 @@ def model_predictions_page(groq_api_key):
                     st.write(user_input_df)
 
                     user_input_transformed = best_model.named_steps['preprocessor'].transform(user_input_df)
-
-                    prediction = best_model.named_steps[model_step_name].predict(user_input_transformed)
+            
+                    prediction = best_model.named_steps['classifier'].predict(user_input_transformed)
 
                     st.write("Prediction based on user input:")
                     st.write(prediction[0])
